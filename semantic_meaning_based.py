@@ -1,0 +1,14 @@
+from langchain_experimental.text_splitter import SemanticChunker
+from langchain_google_genai.embeddings import GoogleGenerativeAIEmbeddings
+from dotenv import load_dotenv
+load_dotenv()
+splitter = SemanticChunker(
+    GoogleGenerativeAIEmbeddings(model='gemini-embedding-001'),breakpoint_threshold_amount=1,breakpoint_threshold_type='standard_deviation'
+)
+text = '''Python is a popular programming language known for its simple syntax and readability. It is widely used in web development, automation, data analysis, and artificial intelligence. Python supports object-oriented programming, which allows developers to organize code using classes and objects. In object-oriented programming, classes define the structure of objects, while objects represent specific instances of those classes. Inheritance allows one class to reuse the properties and methods of another class, making code more reusable and maintainable.
+
+Artificial intelligence is transforming the way computers solve complex problems. Machine learning is a branch of artificial intelligence that enables systems to learn patterns from data. Deep learning uses neural networks with multiple layers to identify complex patterns in images, text, and audio. Generative AI takes this further by generating new content, including text, images, and code. Large language models can understand and generate human-like text, making them useful for chatbots, virtual assistants, and educational applications.
+
+Retrieval-Augmented Generation, commonly known as RAG, combines information retrieval with language models. Instead of relying only on information learned during training, a RAG system retrieves relevant documents from an external knowledge source before generating an answer. Text splitting is an important part of this process because long documents must be divided into smaller chunks. Semantic chunking uses embeddings to identify changes in meaning and can create boundaries between different topics. These chunks are then converted into vectors and stored in a vector database for efficient similarity search.Flutter is a framework for building cross-platform applications using the Dart programming language. Developers can create Android, iOS, web, and desktop applications from a shared codebase. Riverpod is a state management solution that helps manage application state and separate business logic from the user interface. Dio is an HTTP client that supports API requests, interceptors, timeouts, and error handling. By combining Flutter, Riverpod, and Dio, developers can build applications that communicate with backend services and display dynamic data.'''
+output = splitter.create_documents([text])
+print(output)
